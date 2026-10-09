@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>e3mail — end-to-end encrypted email</title>
+  <meta name="description" content="e3mail is an end-to-end encrypted email client with classic email functionality, built with Qt for Linux, Windows, macOS and Android. IMAP and POP3, Autocrypt, OpenPGP via RNP.">
+  <meta property="og:title" content="e3mail — end-to-end encrypted email">
+  <meta property="og:description" content="An encrypted mail client that is honest about what it encrypts. IMAP and POP3, Autocrypt, no folders, no web engine.">
+  <meta property="og:image" content="assets/img/inbox.png">
+  <link rel="icon" type="image/png" href="assets/img/icon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top"><img src="assets/img/icon.png" alt="" width="28" height="28"> e3mail</a>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#screenshots">Screenshots</a>
+      <a href="#status">Status</a>
+      <a href="#build">Build</a>
+      <a class="gh" href="https://github.com/Yjlion/e3mail">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <span class="pill warn">v0.1.0 · preview</span>
+        <h1>Email that is end-to-end encrypted,<br>and honest about when it isn't.</h1>
+        <p class="lede">
+          e3mail is a desktop and mobile mail client with classic email
+          functionality. It speaks IMAP and POP3, encrypts with OpenPGP through
+          <a href="https://www.rnpgp.org">RNP</a>, learns keys with
+          <a href="https://autocrypt.org">Autocrypt</a>, and never lets message
+          content touch the network.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="https://github.com/Yjlion/e3mail">View on GitHub</a>
+          <a class="btn" href="#build">Build from source</a>
+        </div>
+        <p class="platforms">Linux · Windows · macOS · Android &nbsp;—&nbsp; C++20 on Qt 6 &nbsp;—&nbsp; MPL-2.0</p>
+      </div>
+      <figure class="hero-shot">
+        <img src="assets/img/inbox.png" alt="The e3mail inbox: system tags and user tags on the left, encryption state on every message" width="1280" height="820">
+      </figure>
+    </div>
+  </section>
+
+  <section class="notice">
+    <div class="wrap">
+      <div class="callout">
+        <strong>How this was built.</strong> Most of e3mail's code and
+        documentation was written by a large language model working under human
+        direction. It is reviewed and tested, and the tests pass. It has
+        <strong>not</strong> been audited by a security professional, and an
+        encrypted mail client is exactly the kind of software where that
+        matters. Read it before you trust it, and do not rely on it for anything
+        consequential yet.
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="section">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="section-lede">
+        e3mail is a ground-up port of
+        <a href="https://github.com/Yjlion/eeemail">eeemail</a>. It keeps the
+        ideas and drops the Delta Chat engine underneath: the engine is new C++
+        on Qt, and because it owns its own transport it receives mail over
+        <strong>POP3 as well as IMAP</strong>.
+      </p>
+      <div class="grid features">
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+          <h3>IMAP and POP3 are transport only</h3>
+          <p>Mail is downloaded, decrypted, stored locally and, by default, removed
+          from the server. The local database is the mailbox. Mail already on the
+          server when e3mail first connected is never deleted, and “keep N days”
+          and “never delete” are both settings.</p>
+        </article>
+        <article class="card">
+          <div class="ico good"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+          <h3>Opportunistic, and honest about it</h3>
+          <p>e3mail sends an Autocrypt header, learns keys from the ones it
+          receives, and encrypts when <em>every</em> recipient has a key.
+          Otherwise the message goes in cleartext to everyone, and the composer
+          says so before you send. Strict and lenient modes are there too.</p>
+        </article>
+        <article class="card">
+          <div class="ico info"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3>Encrypted ≠ verified</h3>
+          <p>A key learned from a header proves continuity, not identity. So
+          “encrypted” and “verified” are separate badges, and every message row
+          shows which one you actually have.</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 12l8-8h7a2 2 0 0 1 2 2v7l-8 8z"/><circle cx="15.5" cy="8.5" r="1.5"/></svg></div>
+          <h3>Tags, not folders</h3>
+          <p>Inbox, Sent and Drafts are derived from what a message is. Archive,
+          Trash and Unverified are tags with meaning, and your own tags sit on
+          top. A message can carry several.</p>
+        </article>
+        <article class="card">
+          <div class="ico warn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <h3>Strangers wait</h3>
+          <p>Mail from senders you haven't accepted doesn't reach the inbox. It
+          waits in Unverified until you accept or block the sender, with a
+          deadline you can see. Exactly one thing deletes mail on a timer, and
+          it is Trash.</p>
+        </article>
+        <article class="card">
+          <div class="ico bad"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></div>
+          <h3>Content never reaches the network</h3>
+          <p>HTML is re-emitted through a tag whitelist that drops every remote
+          reference and counts what it removed. The renderer's network manager
+          refuses every request. There is no web engine, scripts cannot run, and
+          a link opens only after you've seen where it goes.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="screenshots" class="section alt">
+    <div class="wrap">
+      <h2>What it looks like</h2>
+      <p class="section-lede">Rendered offscreen from a fixture mailbox, never from
+      a real one. The fixture is built by real accounts exchanging real, encrypted
+      mail through an in-process mail server.</p>
+
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-tab="desktop">Desktop</button>
+        <button role="tab" aria-selected="false" data-tab="phone">Phone</button>
+        <button role="tab" aria-selected="false" data-tab="lang">Languages</button>
+      </div>
+
+      <div class="gallery" data-panel="desktop">
+        <figure><img loading="lazy" src="assets/img/thread.png" alt="A threaded conversation"><figcaption><b>Reading.</b> The thread, who it went to, and what the encryption actually was.</figcaption></figure>
+        <figure><img loading="lazy" src="assets/img/unverified.png" alt="The Unverified view"><figcaption><b>Unverified.</b> Mail from senders you have not accepted, with a deadline you can see.</figcaption></figure>
+        <figure><img loading="lazy" src="assets/img/composer.png" alt="The composer"><figcaption><b>Composer.</b> Tells you before you send whether the message will be encrypted.</figcaption></figure>
+        <figure><img loading="lazy" src="assets/img/settings.png" alt="Settings"><figcaption><b>Settings.</b> Every deadline is a setting, and each says what it destroys.</figcaption></figure>
+        <figure><img loading="lazy" src="assets/img/contacts.png" alt="Contacts"><figcaption><b>Contacts.</b> Keys, verification state and per-contact encryption overrides.</figcaption></figure>
+      </div>
+
+      <div class="gallery phones" data-panel="phone" hidden>
+        <figure><img loading="lazy" src="assets/img/phone-inbox.png" alt="Inbox on a phone"><figcaption>Inbox</figcaption></figure>
+        <figure><img loading="lazy" src="assets/img/phone-reading.png" alt="Reading on a phone"><figcaption>Reading</figcaption></figure>
+        <figure><img loading="lazy" src="assets/img/phone-composer.png" alt="Composer on a phone"><figcaption>Composer</figcaption></figure>
+      </div>
+
+      <div class="gallery" data-panel="lang" hidden>
+        <figure><img loading="lazy" src="assets/img/inbox-ar.png" alt="Inbox in Arabic, right to left"><figcaption><b>العربية.</b> Right-to-left layout throughout.</figcaption></figure>
+        <figure><img loading="lazy" src="assets/img/reading-ja.png" alt="Reading pane in Japanese"><figcaption><b>日本語.</b> Charsets and dates through ICU.</figcaption></figure>
+        <figure><img loading="lazy" src="assets/img/settings-de.png" alt="Settings in German"><figcaption><b>Deutsch.</b> One of eleven interface languages.</figcaption></figure>
+      </div>
+      <p class="small muted">The interface is in English, German, French, Spanish, Simplified Chinese,
+      Japanese, Russian, Polish, Arabic, Hebrew and Yiddish. Everything but English was
+      translated by machine and awaits native review.</p>
+    </div>
+  </section>
+
+  <section id="status" class="section">
+    <div class="wrap">
+      <h2>Status</h2>
+      <p class="section-lede"><strong>v0.1.0 — the MVP.</strong> The engine and the
+      desktop app work end to end, against an in-process mail server in the tests and
+      against real Postfix and Dovecot over TLS.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Area</th><th>State</th></tr></thead>
+          <tbody>
+            <tr><td>IMAP (IDLE) and POP3 receive, SMTP send, TLS and STARTTLS</td><td><span class="pill good">done</span></td></tr>
+            <tr><td>Server retention: delete after download / keep N days / never</td><td><span class="pill good">done</span></td></tr>
+            <tr><td>Local store, raw-message retention, full-text search</td><td><span class="pill good">done</span></td></tr>
+            <tr><td>Autocrypt, PGP/MIME, RFC 9788 protected headers, gossip</td><td><span class="pill good">done</span></td></tr>
+            <tr><td>Strict / opportunistic / lenient, per-contact overrides, per-message padlock</td><td><span class="pill good">done</span></td></tr>
+            <tr><td>Threads, system tags, user tags, Unverified, Trash, blocklist, importance</td><td><span class="pill good">done</span></td></tr>
+            <tr><td>Desktop app: list, threaded reading, composer, setup, contacts, settings</td><td><span class="pill good">done</span></td></tr>
+            <tr><td>Several accounts in one window, all fetching</td><td><span class="pill good">done</span></td></tr>
+            <tr><td>CI builds and tests on Linux, Windows and macOS</td><td><span class="pill good">done</span></td></tr>
+            <tr><td>Interop with GnuPG (PGP/MIME decrypts and verifies)</td><td><span class="pill good">done</span></td></tr>
+            <tr><td>Android build (one pane at a time; no background sync)</td><td><span class="pill warn">unverified</span></td></tr>
+            <tr><td><code>.deb</code>, AppImage, Windows installer + portable zip, macOS <code>.dmg</code></td><td><span class="pill warn">in progress</span></td></tr>
+            <tr><td>Multi-device sync over Iroh</td><td><span class="pill warn">phase 8</span></td></tr>
+            <tr><td>SecureJoin QR verification (Delta Chat compatible)</td><td><span class="pill warn">phase 9</span></td></tr>
+            <tr><td>At-rest encryption, encrypted backup, read receipts, structured email</td><td><span class="pill warn">later</span></td></tr>
+            <tr><td>Interop with Thunderbird, Delta Chat or a mainstream provider</td><td><span class="pill bad">not yet</span></td></tr>
+            <tr><td>Code signing</td><td><span class="pill bad">not yet</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">The project's <a href="https://github.com/Yjlion/e3mail/blob/main/docs/handoff.md">handoff notes</a>
+      say what is true right now, including what is not.</p>
+    </div>
+  </section>
+
+  <section id="build" class="section alt">
+    <div class="wrap two-col">
+      <div>
+        <h2>Build from source</h2>
+        <p>You need Qt 6.8 or newer (with Qt Linguist's tools), CMake 3.21+, a C++20
+        compiler, SQLite with FTS5, ICU, and RNP with Botan.</p>
+        <ul class="deps">
+          <li><b>Arch:</b> <code>pacman -S qt6-base qt6-declarative qt6-svg qt6-tools icu botan json-c sqlite</code>, then <code>scripts/build-rnp.sh</code> for RNP.</li>
+          <li><b>Debian / Ubuntu:</b> add <code>libicu-dev</code> and use <code>librnp-dev</code>.</li>
+          <li><b>macOS:</b> <code>brew install rnp icu4c</code> and set <code>ICU_ROOT=$(brew --prefix icu4c)</code>.</li>
+        </ul>
+        <p><code>e3mail-cli</code> drives the same engine from a terminal. <code>--data-dir</code>
+        points either program at another data directory, and a <code>portable.txt</code>
+        beside the executable keeps data in <code>data/</code> next to it.</p>
+      </div>
+      <div>
+        <div class="code">
+          <button class="copy" type="button" aria-label="Copy commands">Copy</button>
+<pre><code>git clone https://github.com/Yjlion/e3mail
+cd e3mail
+cmake --preset dev
+cmake --build --preset dev
+ctest --preset dev
+./build/dev/src/app/e3mail</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="docs" class="section">
+    <div class="wrap">
+      <h2>Documentation</h2>
+      <div class="grid links">
+        <a class="card link" href="https://github.com/Yjlion/e3mail/blob/main/docs/DESIGN.md"><h3>Design</h3><p>Architecture, phases, the multi-client design.</p></a>
+        <a class="card link" href="https://github.com/Yjlion/e3mail/tree/main/docs/adr"><h3>Decision records</h3><p>Sixteen ADRs, one decision per file — from “own engine” to Android.</p></a>
+        <a class="card link" href="https://github.com/Yjlion/e3mail/blob/main/docs/handoff.md"><h3>Handoff</h3><p>Current state, gaps, traps and next steps. Blunt on purpose.</p></a>
+        <a class="card link" href="https://github.com/Yjlion/e3mail/tree/main/server/compose"><h3>Test mail server</h3><p>Postfix and Dovecot over TLS in Docker Compose, for end-to-end runs.</p></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span><img src="assets/img/icon.png" alt="" width="20" height="20"> e3mail — licensed under <a href="https://github.com/Yjlion/e3mail/blob/main/LICENSE">MPL-2.0</a></span>
+    <span><a href="https://github.com/Yjlion/e3mail">Source</a> · <a href="https://github.com/Yjlion/e3mail/issues">Issues</a> · <a href="https://github.com/Yjlion/e3mail/blob/main/NOTICE">Notice</a></span>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>
